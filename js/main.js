@@ -30,27 +30,23 @@ function CircleGenerator(ballCount, ballsPerLine, radius)
 
 var svgContainer = d3.select("body").select("svg");
 
-var circleGroup = svgContainer.append("g")
-                    .attr("transform", "translate(80,0)");
-
 var generator =  new CircleGenerator(3225, 115, 2.5);
+var source = svgContainer
+    .append("g")
+    .attr("transform", "translate(80,0)")
+    .selectAll("circle")
+    .data(generator.getCircles())
+    .enter()
+    .append("circle")
+    .attr("cx", function (d) { return d.cx; })
+    .attr("cy", function (d) { return d.cy; })
+    .attr("r", function (d) { return d.radius; })
+    .style("fill", function (d) { return d.color; });
 
-var circles = circleGroup.selectAll("circle")
-                          .data(generator.getCircles())
-                          .enter()
-                          .append("circle");
-
-var circleAttributes = circles
-                        .attr("cx", function (d) { return d.cx; })
-                        .attr("cy", function (d) { return d.cy; })
-                        .attr("r", function (d) { return d.radius; })
-                        .style("fill", function (d) { return d.color; });
-
-
-var circleGroupDest = svgContainer.append("g")
-    .attr("transform", "translate(80,270)");
-var genDestination =  new CircleGenerator(1250, 115, 2.5, 5);
-var circlesDest = circleGroupDest.selectAll("circle")
+generator =  new CircleGenerator(1250, 115, 2.5, 5);
+var destination = svgContainer.append("g")
+    .attr("transform", "translate(80,270)")
+    .selectAll("circle")
     .data(genDestination.getCircles())
     .enter()
     .append("circle")
