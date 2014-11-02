@@ -49,13 +49,11 @@ var circleAttributes = circles
 
 var circleGroupDest = svgContainer.append("g")
     .attr("transform", "translate(80,270)");
-var genDestination =  new CircleGenerator(1250, 115, 2, 5);
+var genDestination =  new CircleGenerator(1250, 115, 2.5, 5);
 var circlesDest = circleGroupDest.selectAll("circle")
     .data(genDestination.getCircles())
     .enter()
-    .append("circle");
-
-var circleAttributesDest = circlesDest
+    .append("circle")
     .attr("cx", function (d) { return d.cx; })
     .attr("cy", function (d) { return d.cy; })
     .attr("r", function (d) { return d.radius; })
